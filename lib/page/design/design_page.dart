@@ -1,41 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DesignPage extends StatelessWidget {
-  final double? designedWidth;
+class DesignPage extends StatefulWidget {
+  final Size designedSize;
 
-  const DesignPage({super.key, this.designedWidth});
+  const DesignPage({super.key, required this.designedSize});
 
   @override
-  Widget build(BuildContext context) {
-    double getSquareSize() {
-      if (designedWidth == null) {
-        return MediaQuery.of(context).size.width - 40;
-      }
-      switch (designedWidth) {
-        case 375:
-          return 320;
-        case 393:
-          return 335;
-        case 440:
-          return 375;
-        case 480:
-          return 410;
-        default:
-          return designedWidth! - 40;
-      }
-    }
+  State<DesignPage> createState() => _DesignPageState();
+}
 
-    if (designedWidth != null) {
-      ScreenUtil.init(context, designSize: Size(designedWidth!, 812));
-    }
+class _DesignPageState extends State<DesignPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
-    return Scaffold(
+  int get width => widget.designedSize.width.toInt();
+
+  double getSquareSize() {
+    switch (width) {
+      case 375:
+        return 320;
+      case 393:
+        return 335;
+      case 440:
+        return 375;
+      case 480:
+        return 410;
+      default:
+        return width - 27 * 2;
+    }
+  }
+
+  double getPadding() {
+    switch (width) {
+      case 375:
+        return 27;
+      case 393:
+        return 29;
+      case 440:
+        return 32;
+      case 480:
+        return 35;
+      default:
+        return 25;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => ScreenUtilInit(
+    designSize: widget.designedSize,
+    minTextAdapt: true,
+    splitScreenMode: true,
+    builder: (context, child) => Scaffold(
       appBar: AppBar(
-        title: const Text('Design Page'),
+        title: Text(
+          '(${widget.designedSize.width.toStringAsFixed(2)}, ${widget.designedSize.height.toStringAsFixed(2)})',
+        ),
+        actions: [Text('padding: ${getPadding().toInt()}'), SizedBox(width: getPadding())],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(getPadding()),
         child: Column(
           children: [
             Center(
@@ -46,11 +72,7 @@ class DesignPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     '${getSquareSize().toInt()}x${getSquareSize().toInt()}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -63,31 +85,43 @@ class DesignPage extends StatelessWidget {
                   width: 96,
                   height: 96,
                   color: Colors.blue,
+                  child: const Center(
+                    child: Text(
+                      '96x96',
+                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
                 Container(
                   width: 96,
                   height: 96,
                   color: Colors.green,
+                  child: const Center(
+                    child: Text(
+                      '96x96',
+                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
                 Container(
                   width: 96,
                   height: 96,
                   color: Colors.yellow,
+                  child: const Center(
+                    child: Text(
+                      '96x96',
+                      style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
             Row(
               children: [
-                Text(
-                  'Hello World',
-                  style: TextStyle(fontSize: 40.sp),
-                ),
+                Text('Hello World', style: TextStyle(fontSize: 40.sp)),
                 const SizedBox(width: 20),
-                Text(
-                  'font 40',
-                  style: TextStyle(fontSize: 24.sp),
-                ),
+                Text('font 40', style: TextStyle(fontSize: 24.sp)),
               ],
             ),
             const SizedBox(height: 20),
@@ -98,6 +132,6 @@ class DesignPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
 }
