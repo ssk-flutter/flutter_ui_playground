@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ui_playground/type/screen_type.dart';
 
-class DesignPage extends StatefulWidget {
-  DesignPage({super.key, required this.screenType});
+class UsingScreenUtilPage extends StatefulWidget {
+  const UsingScreenUtilPage({super.key, required this.screenType});
 
   final ScreenType screenType;
 
   @override
-  State<DesignPage> createState() => _DesignPageState();
+  State<UsingScreenUtilPage> createState() => _UsingScreenUtilPageState();
 }
 
-class _DesignPageState extends State<DesignPage> {
+class _UsingScreenUtilPageState extends State<UsingScreenUtilPage> {
+  static bool showExtraWidgets = false;
+
   @override
   void initState() {
     super.initState();
@@ -46,30 +48,44 @@ class _DesignPageState extends State<DesignPage> {
   Widget buildScaffold(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text(
-        '(${screenType.getDesignedSize(context).width.toStringAsFixed(2)}, ${screenType.getDesignedSize(context).height.toStringAsFixed(2)})',
+        'size(${screenType.getDesignedSize(context).width.toStringAsFixed(2)} x ${screenType.getDesignedSize(context).height.toStringAsFixed(2)})',
       ),
       actions: [
-        Text('padding: ${getPadding(context).toInt()}'),
-        SizedBox(width: getPadding(context)),
+        Text('pad(${getPadding(context).toInt()})'),
+        SizedBox(width: 8.w),
+        IconButton(
+          icon: Icon(showExtraWidgets ? Icons.visibility_off : Icons.visibility),
+          onPressed: () {
+            setState(() {
+              showExtraWidgets = !showExtraWidgets;
+            });
+          },
+        ),
+        SizedBox(width: 8.w),
       ],
     ),
     body: SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(getPadding(context)),
+        padding: EdgeInsets.all(getPadding(context).w),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Container(
-                width: getSquareSize(context).w,
-                height: getSquareSize(context).h,
-                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20.w)),
-                child: Center(
-                  child: Text(
-                    '${getSquareSize(context).toInt()}x${getSquareSize(context).toInt()}',
-                    style: TextStyle(color: Colors.white, fontSize: 40.sp, fontWeight: FontWeight.bold),
+            Row(
+              // 사이즈 벗어날 경우 overflow 를 드러내기 위해 Row 사용
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: getSquareSize(context).w,
+                  height: getSquareSize(context).h,
+                  decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20.w)),
+                  child: Center(
+                    child: Text(
+                      '${getSquareSize(context).toInt()}x${getSquareSize(context).toInt()}',
+                      style: TextStyle(color: Colors.white, fontSize: 40.sp, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
             SizedBox(height: 20.h),
             Row(
@@ -124,7 +140,6 @@ class _DesignPageState extends State<DesignPage> {
                       'font 40',
                       style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w700),
                     ),
-                    Text('(24.sp)', style: TextStyle(fontSize: 24.sp)),
                   ],
                 ),
               ],
@@ -135,18 +150,30 @@ class _DesignPageState extends State<DesignPage> {
               style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700),
             ),
             SizedBox(height: 20.h),
-            sizeText(context),
-            SizedBox(height: 20),
-            if (true) Text(longText),
-            SizedBox(height: 20.h),
+            if (showExtraWidgets) _extraWidgets(context),
           ],
         ),
       ),
     ),
   );
 
-  String get longText {
-    return '''헌법개정안이 제2항의 찬성을 얻은 때에는 헌법개정은 확정되며, 대통령은 즉시 이를 공포하여야 한다. 국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다.
+  Column _extraWidgets(BuildContext context) {
+    return Column(
+      children: [
+        // sizeText(context),
+        // SizedBox(height: 20),
+        Text(
+          longText,
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700),
+        ),
+        SizedBox(height: 20.h),
+      ],
+    );
+  }
+
+  String get longText => '''<<<16sp extra text begin>>>
+      
+헌법개정안이 제2항의 찬성을 얻은 때에는 헌법개정은 확정되며, 대통령은 즉시 이를 공포하여야 한다. 국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다.
 
 제2항의 재판관중 3인은 국회에서 선출하는 자를, 3인은 대법원장이 지명하는 자를 임명한다. 제1항의 탄핵소추는 국회재적의원 3분의 1 이상의 발의가 있어야 하며, 그 의결은 국회재적의원 과반수의 찬성이 있어야 한다. 다만, 대통령에 대한 탄핵소추는 국회재적의원 과반수의 발의와 국회재적의원 3분의 2 이상의 찬성이 있어야 한다.
 
@@ -157,7 +184,6 @@ class _DesignPageState extends State<DesignPage> {
 제2항과 제3항의 처분에 대하여는 법원에 제소할 수 없다. 위원은 정당에 가입하거나 정치에 관여할 수 없다. 대통령이 제1항의 기간내에 공포나 재의의 요구를 하지 아니한 때에도 그 법률안은 법률로서 확정된다.
 
 교육의 자주성·전문성·정치적 중립성 및 대학의 자율성은 법률이 정하는 바에 의하여 보장된다. 정당의 설립은 자유이며, 복수정당제는 보장된다. 국회는 선전포고, 국군의 외국에의 파견 또는 외국군대의 대한민국 영역안에서의 주류에 대한 동의권을 가진다.''';
-  }
 
   Widget sizeText(BuildContext context) => Text(
     'Size: ${MediaQuery.sizeOf(context).width.toInt()}x${MediaQuery.sizeOf(context).height.toInt()}',
