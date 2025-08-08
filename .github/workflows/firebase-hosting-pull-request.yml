@@ -13,7 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci
+
+      # build flutter
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter --version
+      - run: flutter pub get
+      #      - run: flutter test
+      - run: dart fix --apply
+      - run: flutter build web
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
