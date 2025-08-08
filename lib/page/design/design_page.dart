@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class DesignPage extends StatefulWidget {
   final Size designedSize;
 
-  const DesignPage({super.key, required this.designedSize});
+  DesignPage({super.key, required this.designedSize});
 
   @override
   State<DesignPage> createState() => _DesignPageState();
@@ -58,7 +58,10 @@ class _DesignPageState extends State<DesignPage> {
         title: Text(
           '(${widget.designedSize.width.toStringAsFixed(2)}, ${widget.designedSize.height.toStringAsFixed(2)})',
         ),
-        actions: [Text('padding: ${getPadding().toInt()}'), SizedBox(width: getPadding())],
+        actions: [
+          Text('padding: ${getPadding().toInt()}'),
+          SizedBox(width: getPadding()),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(getPadding()),
@@ -68,66 +71,69 @@ class _DesignPageState extends State<DesignPage> {
               child: Container(
                 width: getSquareSize(),
                 height: getSquareSize(),
-                color: Colors.red,
+                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
                 child: Center(
                   child: Text(
                     '${getSquareSize().toInt()}x${getSquareSize().toInt()}',
-                    style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontSize: 40.sp, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   width: 96,
                   height: 96,
-                  color: Colors.blue,
-                  child: const Center(
+                  decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
+                  child: Center(
                     child: Text(
                       '96x96',
-                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 Container(
                   width: 96,
                   height: 96,
-                  color: Colors.green,
-                  child: const Center(
+                  decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),
+                  child: Center(
                     child: Text(
                       '96x96',
-                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 Container(
                   width: 96,
                   height: 96,
-                  color: Colors.yellow,
-                  child: const Center(
+                  decoration: BoxDecoration(color: Colors.yellow, borderRadius: BorderRadius.circular(8)),
+                  child: Center(
                     child: Text(
                       '96x96',
-                      style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Row(
               children: [
-                Text('Hello World', style: TextStyle(fontSize: 40.sp)),
-                const SizedBox(width: 20),
-                Text('font 40', style: TextStyle(fontSize: 24.sp)),
+                Text(
+                  'Hello World',
+                  style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
+                ),
+                SizedBox(width: 20),
+                Text('font 40', style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w700)),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Text(
               '이 구문이 유명해지자 요즘에는 언급한 오래된 컴퓨터 언어의 입문서에서도 볼 수 있다. 뿐만 아니라 특이한 프로그래밍 언어도 소개할 때에도 이것을 출력하는 코드를 보여주는 것이 암묵의 룰.',
-              style: TextStyle(fontSize: 16.sp),
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700),
             ),
           ],
         ),
