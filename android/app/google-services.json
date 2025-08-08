@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "31284208271",
+    "project_id": "flutter-ui-playground",
+    "storage_bucket": "flutter-ui-playground.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31284208271:android:16716b29d7f7b2cc8b46fa",
+        "android_client_info": {
+          "package_name": "com.example.flutter_ui_playground"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYa55D0tzpTF-gYenWLVCLefuZqMLUNkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31284208271:android:d0bbc6bc1b3732bf8b46fa",
+        "android_client_info": {
+          "package_name": "com.ssk.flutter_ui_playground"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYa55D0tzpTF-gYenWLVCLefuZqMLUNkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
