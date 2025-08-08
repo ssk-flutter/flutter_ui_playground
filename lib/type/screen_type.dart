@@ -7,16 +7,16 @@ enum ScreenType {
   size440(width: 440, padding: 32.0),
   size480(width: 480, padding: 35.0);
 
-  const ScreenType({required this.width, required this.padding});
+  const ScreenType({required this.width, required double padding}) : _padding = padding;
 
   final int width;
-  final double padding;
+  final double _padding;
 
-  double calculatePadding(double width) {
+  double getPadding(double width) {
     if (this == ScreenType.pure) {
-      return width * padding;
+      return width * _padding;
     }
-    return padding;
+    return _padding;
   }
 
   Size getDesignedSize(BuildContext context) {
@@ -24,5 +24,22 @@ enum ScreenType {
     if (this == ScreenType.pure) return size;
 
     return Size(width.toDouble(), width * size.height / size.width);
+  }
+
+  double getSquareSize(BuildContext context) {
+    final width = getDesignedSize(context).width;
+
+    switch (width) {
+      case 375:
+        return 320;
+      case 393:
+        return 335;
+      case 440:
+        return 375;
+      case 480:
+        return 410;
+      default:
+        return width - getPadding(width) * 2;
+    }
   }
 }

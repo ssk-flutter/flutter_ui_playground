@@ -28,34 +28,18 @@ class _DesignPageState extends State<DesignPage> {
   }
 
   double getSquareSize(BuildContext context) {
-    switch (width) {
-      case 375:
-        return 320;
-      case 393:
-        return 335;
-      case 440:
-        return 375;
-      case 480:
-        return 410;
-      default:
-        return width(context) - getPadding(context) * 2;
-    }
+    return screenType.getSquareSize(context);
   }
 
-  double getPadding(BuildContext context) => screenType.calculatePadding(width(context));
+  double getPadding(BuildContext context) => screenType.getPadding(width(context));
 
   @override
   Widget build(BuildContext context) {
-    if (screenType == ScreenType.pure) {
-      return buildScaffold(context);
-    }
-
     return ScreenUtilInit(
       designSize: screenType.getDesignedSize(context),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: buildScaffold(context),
-      builder: (context, child) => buildScaffold(context)!,
+      builder: (context, child) => buildScaffold(context),
     );
   }
 
@@ -76,9 +60,9 @@ class _DesignPageState extends State<DesignPage> {
           children: [
             Center(
               child: Container(
-                width: getSquareSize(context),
-                height: getSquareSize(context),
-                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20)),
+                width: getSquareSize(context).w,
+                height: getSquareSize(context).h,
+                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(20.w)),
                 child: Center(
                   child: Text(
                     '${getSquareSize(context).toInt()}x${getSquareSize(context).toInt()}',
@@ -87,14 +71,14 @@ class _DesignPageState extends State<DesignPage> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: 96,
-                  height: 96,
-                  decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
+                  width: 96.w,
+                  height: 96.h,
+                  decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8.w)),
                   child: Center(
                     child: Text(
                       '96x96',
@@ -103,9 +87,9 @@ class _DesignPageState extends State<DesignPage> {
                   ),
                 ),
                 Container(
-                  width: 96,
-                  height: 96,
-                  decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),
+                  width: 96.w,
+                  height: 96.h,
+                  decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8.w)),
                   child: Center(
                     child: Text(
                       '96x96',
@@ -114,9 +98,9 @@ class _DesignPageState extends State<DesignPage> {
                   ),
                 ),
                 Container(
-                  width: 96,
-                  height: 96,
-                  decoration: BoxDecoration(color: Colors.yellow, borderRadius: BorderRadius.circular(8)),
+                  width: 96.w,
+                  height: 96.h,
+                  decoration: BoxDecoration(color: Colors.yellow, borderRadius: BorderRadius.circular(8.w)),
                   child: Center(
                     child: Text(
                       '96x96',
@@ -126,29 +110,35 @@ class _DesignPageState extends State<DesignPage> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Row(
               children: [
                 Text(
                   'Hello World',
                   style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w700),
                 ),
-                SizedBox(width: 20),
-                Text(
-                  'font 40',
-                  style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w700),
+                SizedBox(width: 20.h),
+                Column(
+                  children: [
+                    Text(
+                      'font 40',
+                      style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w700),
+                    ),
+                    Text('(24.sp)', style: TextStyle(fontSize: 24.sp)),
+                  ],
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Text(
               '이 구문이 유명해지자 요즘에는 언급한 오래된 컴퓨터 언어의 입문서에서도 볼 수 있다. 뿐만 아니라 특이한 프로그래밍 언어도 소개할 때에도 이것을 출력하는 코드를 보여주는 것이 암묵의 룰.',
               style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 20.h),
             sizeText(context),
-            // SizedBox(height: 20),
-            // if (false) Text(longText),
+            SizedBox(height: 20),
+            if (true) Text(longText),
+            SizedBox(height: 20.h),
           ],
         ),
       ),
