@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_playground/page/home/home_page.dart';
+import 'package:flutter_ui_playground/page/size_checker/size_checker_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,7 +9,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
-      home: HomePage(),
+      // home: HomePage(),
+      home: SizeCheckerPage(),
     );
   }
 }
